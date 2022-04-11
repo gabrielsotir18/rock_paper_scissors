@@ -8,20 +8,19 @@ function computerPlay(){
 
 function playGame(playerSelection, computerSelection){
     playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
-    computerSelection = computerPlay();
     if(playerSelection == "Rock"){
         if(computerSelection == "Paper") return "lose";
         else if(computerSelection == "Scissors") return "win";
-        else return null;    
+        else return "tie";    
     }else if(playerSelection == "Paper"){
         if(computerSelection == "Scissors") return "lose";
         else if(computerSelection == "Rock") return "win";
-        else return null;    
-    }else{
+        else return "tie";    
+    }else if(playerSelection == "Scissors"){
         if(computerSelection == "Rock") return "lose";
         else if(computerSelection == "Paper") return "win";
-        else return null;    
-    }
+        else return "tie";    
+    }else return null;
 }
 
 
@@ -31,13 +30,22 @@ for(let i = 0 ; i < 5 ; i++){
     let playerSelection = prompt("Pick either Rock, Paper or Scissors!");
     let computerSelection = computerPlay();
     if(playGame(playerSelection, computerSelection) == "win") {
+
         playerPoints++;
         alert(`You picked ${playerSelection} and the computer picked ${computerSelection}.
-You won this round!`)
-    }else if((playGame(playerSelection, computerSelection) == "lose"){
+You won this round!`);
+
+    }else if(playGame(playerSelection, computerSelection) == "lose"){
+
         computerPoints++;
         alert(`You picked ${playerSelection} and the computer picked ${computerSelection}.
-You lost this round!`)
+You lost this round!`);
+
+    }else if(playGame(playerSelection, computerSelection) == "tie"){
+
+    alert(`You picked ${playerSelection} and the computer picked ${computerSelection}.
+Tie!`);
+
     }
 }
 if(playerPoints > computerPoints) alert(`${playerPoints} - ${computerPoints}.
