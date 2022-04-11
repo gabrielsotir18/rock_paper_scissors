@@ -34,7 +34,7 @@ for(let i = 0 ; i < 5 ; i++){
         playerPoints++;
         alert(`You picked ${playerSelection} and the computer picked ${computerSelection}.
 You won this round!`)
-    }else {
+    }else if((playGame(playerSelection, computerSelection) == "lose"){
         computerPoints++;
         alert(`You picked ${playerSelection} and the computer picked ${computerSelection}.
 You lost this round!`)
