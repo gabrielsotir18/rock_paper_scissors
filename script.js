@@ -24,31 +24,43 @@ function playGame(playerSelection, computerSelection){
 }
 
 
+const body = document.querySelector("body");
+const buttons = Array.from(document.querySelectorAll('.btn'));
+const result = document.createElement("div");
+const points = document.createElement("div");
 let playerPoints = 0;
 let computerPoints = 0;
-for(let i = 0 ; i < 5 ; i++){
-    let playerSelection = prompt("Pick either Rock, Paper or Scissors!");
-    let computerSelection = computerPlay();
-    if(playGame(playerSelection, computerSelection) == "win") {
+let endGameFlag = false;
+buttons.forEach(element => {
+    element.addEventListener("click", e =>{
+        let playerSelection=(e.target.value);
+        let computerSelection=computerPlay()
+        if(playGame(playerSelection, computerSelection) == "win"){
+            result.textContent = `You picked ${playerSelection}\n computer picked ${computerSelection}\n YOU WON!!`;
+            playerPoints++;
+        }else if(playGame(playerSelection, computerSelection) == "lose"){
+            result.textContent = `You picked ${playerSelection}\n computer picked ${computerSelection}\n YOU LOST!!`;
+            computerPoints++;
+        }else if(playGame(playerSelection, computerSelection) == "tie"){
+            result.textContent = `You picked ${playerSelection}\n computer picked ${computerSelection}\n Its a tie`;
+        }
+        body.appendChild(result);
+        if(playerPoints == 5 || computerPoints == 5){
+            points.textContent = `game finished ${playerPoints} - ${computerPoints}`;
+            body.appendChild(points);
+            buttons.forEach(element => {
+                element.childNodes[1].disabled = true;
+                console.log(element.childNodes[1]);
+            });
+        }
+    });
+});
 
-        playerPoints++;
-        alert(`You picked ${playerSelection} and the computer picked ${computerSelection}.
-You won this round!`);
-
-    }else if(playGame(playerSelection, computerSelection) == "lose"){
-
-        computerPoints++;
-        alert(`You picked ${playerSelection} and the computer picked ${computerSelection}.
-You lost this round!`);
-
-    }else if(playGame(playerSelection, computerSelection) == "tie"){
-
-    alert(`You picked ${playerSelection} and the computer picked ${computerSelection}.
-Tie!`);
-
-    }
+if(endGameFlag == true){ 
+    console.log("done");
+    buttons.forEach(element => {
+        element.disable = true;
+        console.log(element);
+    });
+    
 }
-if(playerPoints > computerPoints) alert(`${playerPoints} - ${computerPoints}.
-You won the game!`);
-else alert(`${playerPoints} - ${computerPoints}.
-You lost the game!`);
